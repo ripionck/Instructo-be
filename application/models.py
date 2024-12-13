@@ -38,4 +38,4 @@ class Application(models.Model):
         verbose_name_plural = 'Applications'
 
     def __str__(self):
-        return f'{self.student.get_full_name()} applied for {self.tuition.title}'
+        return f'{self.student.get_full_name()} applied for {self.tutor.title}'
