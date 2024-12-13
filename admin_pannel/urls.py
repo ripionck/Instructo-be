@@ -7,6 +7,8 @@ from .views import (
     activate_view
 )
 
+app_name = 'admin_pannel'
+
 urlpatterns = [
     path('list/', AdminApiView.as_view(), name='admin-list'),
     path('register/', AdminRegistrationView.as_view(), name='register'),

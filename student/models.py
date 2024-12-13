@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
-from core.constrains import GENDER_CHOICES, MEDIUM_OF_INSTRUCTION_CHOICES
+from core.constrains import CLASS_CHOICES, GENDER_CHOICES, MEDIUM_OF_INSTRUCTION_CHOICES
 
 
 class Student(models.Model):
@@ -43,6 +43,12 @@ class Student(models.Model):
     )
     school = models.CharField(
         max_length=500,
+        null=True,
+        blank=True
+    )
+    current_class = models.CharField(
+        max_length=20,
+        choices=CLASS_CHOICES,
         null=True,
         blank=True
     )

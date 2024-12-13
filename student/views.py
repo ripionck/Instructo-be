@@ -12,7 +12,6 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-
 from .models import Student
 from .serializers import (
     StudentSerializer,
@@ -20,8 +19,8 @@ from .serializers import (
     TutorLoginSerializer,
     ChangePasswordSerializer
 )
-from tuition.models import Tuition
-from tuition.serializers import TuitionSerializer
+from tutor.models import Tutor
+from tutor.serializers import TutorSerializer
 
 
 class StudentFilterViewset(APIView):
@@ -126,7 +125,7 @@ class ChangePasswordApiView(APIView):
 
 
 class ClassFilter(generics.ListAPIView):
-    queryset = Tuition.objects.all()
-    serializer_class = TuitionSerializer
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['tuition_class']
