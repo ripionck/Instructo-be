@@ -10,13 +10,14 @@ class AdminModel(models.Model):
         related_name="admin_profile"
     )
     phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+8801234567890'. Up to 15 digits allowed."
+        regex=r'^\+?88[0-9]{11}$',
+        message="Phone number must be entered in the format: '+8801234567890'"
     )
     mobile_no = models.CharField(
         validators=[phone_regex],
-        max_length=15,
-        help_text="Contact phone number"
+        max_length=14,
+        help_text="Contact phone number in Bangladesh format (+8801XXX)",
+        unique=True
     )
 
     class Meta:
