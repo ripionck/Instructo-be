@@ -6,6 +6,5 @@ app_name = 'application'
 urlpatterns = [
     path('', ApplicationListCreateView.as_view(),
          name='application-list-create'),
-    path('<int:pk>/', ApplicationDetailView.as_view(),
-         name='application-detail'),
+    path('<int:pk>/', ApplicationDetailView.as_view(), name='application-detail'),
 ]
