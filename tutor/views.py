@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from .models import Tutor, Review
+from .models import SubjectChoice, Tutor, Review
 from .serializers import TutorSerializer, ReviewSerializer
 
 
@@ -73,3 +73,22 @@ class TutorList(APIView):
             serializer.save(author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TutorSearchAPIView(APIView):
+    def get(self, request, format=None):
+        subject_name = request.query_params.get('subject', None)
+        class_name = request.query_params.get('class', None)
+
+        tutors = Tutor.objects.all()
+
+        if subject_name:
+            subject = get_object_or_404(SubjectChoice, name=subject_name)
+            tutors = tutors.filter(subjects=subject)
+
+        if class_name:
+            tutors = tutors.filter(tuition_class=class_name)
+
+        # Serialize the filtered queryset
+        serializer = TutorSerializer(tutors, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
